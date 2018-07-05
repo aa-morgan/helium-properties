@@ -11,6 +11,8 @@ http://dx.doi.org/10.1103/PhysRevA.20.2251
 Install
 -------
 
+Requires: https://github.com/axm108/helium-stark-zeeman
+
 Install using setuptools,
 ```bash
 git clone https://github.com/axm108/helium-properties

@@ -60,6 +60,7 @@ Parameters
 
 #### Method: energy
 Energy relative to the ionisation energy.
+
 | Parameter  | Description | Data type | Required | Default |
 | ------------ | ------------ | ------------ | ------------ | ------------ |
 | state | State to calculate the energy of. | State | Yes | N/A |
@@ -67,6 +68,7 @@ Energy relative to the ionisation energy.
 
 #### Method: radiative_lifetime_all
 Radiative lifetime of a state, considering all possible electric dipole allowed transitions.
+
 | Parameter  | Description | Data type | Required | Default |
 | ------------ | ------------ | ------------ | ------------ | ------------ |
 | state | State to calculate the radiative lifetime of. | State | Yes | N/A |
@@ -74,6 +76,7 @@ Radiative lifetime of a state, considering all possible electric dipole allowed 
 
 #### Method: transition_energy
 Transition energy between two states.
+
 | Parameter  | Description | Data type | Required | Default |
 | ------------ | ------------ | ------------ | ------------ | ------------ |
 | state_1 | State to calculate the transition energy from. | State | Yes | N/A |
@@ -82,6 +85,7 @@ Transition energy between two states.
 
 #### Method: transition_dipole_moment
 Transition electric dipole moment between two states.
+
 | Parameter  | Description | Data type | Required | Default |
 | ------------ | ------------ | ------------ | ------------ | ------------ |
 | state_1 | State to calculate the transition dipole moment from. | State | Yes | N/A |
@@ -90,6 +94,7 @@ Transition electric dipole moment between two states.
 
 #### Method: radiative_lifetime
 Radiative lifetime between two electric dipole allowed states.
+
 | Parameter  | Description | Data type | Required | Default |
 | ------------ | ------------ | ------------ | ------------ | ------------ |
 | state_1 | State to calculate the radiative lifetime from. | State | Yes | N/A |

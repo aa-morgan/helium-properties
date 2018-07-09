@@ -81,10 +81,24 @@ def allowed_transition(state_1, state_2, **kwargs):
         return True
     else:
         return False
+    
+def hydrogenic_polarizability(state, **kwargs):
+    n = state.n
+    k = kwargs.get('k', 0)
+    m = state.M
+    F_0 = En_h/(e*a_0)
+    pol = (1/8)*(1/F_0)**2*n**4*(17*n**2 - 3*k**2 - 9*m**2 + 19)
+    units = select_units(unit_type='polarizability', units=kwargs.get('units', 'hz/(v/cm)2'))
+    return pol * units
+
+def relative_hydrogenic_polarizability(state_1, state_2, **kwargs):
+    pol_1 = hydrogenic_polarizability(state_1, **kwargs)
+    pol_2 = hydrogenic_polarizability(state_2, **kwargs)
+    return pol_2 - pol_1
 
 def select_units(unit_type, units):
     if unit_type == 'energy':
-        if str(units).lower() in ['au', 'atomic']:
+        if str(units).lower() in ['au', 'atomic', 'ea']:
             return 1.0
         elif str(units).lower() in ['j', 'joules', 'E']:
             return En_h
@@ -92,6 +106,10 @@ def select_units(unit_type, units):
             return (En_h/(h*c*100))
         elif str(units).lower() in ['hz', 'frequency', 'freq', 'f']:
             return (En_h/h)
+        elif str(units).lower() in ['khz']:
+            return (En_h/h) * 10**-3
+        elif str(units).lower() in ['mhz']:
+            return (En_h/h) * 10**-6
         elif str(units).lower() in ['ghz']:
             return (En_h/h) * 10**-9
     elif unit_type == 'electric dipole moment':
@@ -110,5 +128,20 @@ def select_units(unit_type, units):
             return 10**6
         elif str(units).lower() in ['ns', 'nanosec', 'nanoseconds']:
             return 10**9
+    elif unit_type == 'polarizability':
+        if str(units).lower() in ['hz/(v/m)2']:
+            return En_h/(2*h)
+        elif str(units).lower() in ['khz/(v/m)2']:
+            return En_h/(2*h) *10**-3
+        elif str(units).lower() in ['mhz/(v/m)2']:
+            return En_h/(2*h) *10**-6
+        if str(units).lower() in ['hz/(v/cm)2']:
+            return En_h/(2*h) * 10**4
+        elif str(units).lower() in ['khz/(v/cm)2']:
+            return En_h/(2*h) *10**-3 * 10**4
+        elif str(units).lower() in ['mhz/(v/cm)2']:
+            return En_h/(2*h) *10**-6 * 10**4
+        elif str(units).lower() in ['cm2/v']:
+            return En_h/(2*h) * (1.324*10**-34)
     else:
         raise('Units '+str(units)+' not known.')

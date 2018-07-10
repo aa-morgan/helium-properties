@@ -142,6 +142,6 @@ def select_units(unit_type, units):
         elif str(units).lower() in ['mhz/(v/cm)2']:
             return En_h/(2*h) *10**-6 * 10**4
         elif str(units).lower() in ['cm2/v']:
-            return En_h/(2*h) * (1.324*10**-34)
+            return En_h
     else:
         raise('Units '+str(units)+' not known.')

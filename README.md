@@ -53,13 +53,13 @@ Parameters
 #### Class: `State`
 | Parameter  | Description | Data type | Required | Default |
 | ------------ | ------------ | ------------ | ------------ | ------------ |
-| n_min | Minimum value of the principle quantum number n, to allow in the basis. | Int | Yes | N/A |
-| n_max | Maximum value of the principle quantum number n, to allow in the basis. | Int | Yes | N/A |
-| L_max | Maximum value of the orbital angular momentum quantum number to allow in the basis. None means no restriction. | Int [or None] | No | None |
-| S | Value of the total spin orbital angular momentum. [Singlet: S=0, Triplet: S=1]. None means both.  | Int [or None] | No | None |
-| M | Single value of the azimuthal quantum number to use in the basis. None means no restriction. | Int [or None] | No | None |
-| M_max | Maximum value of the azimuthal quantum number to allow in the basis. None means no restriction. | Int [or None] | No | None |
-| basis_type | Whether to use the n, L, S, M_L, or n, L, S, J, M_J basis. Specify using 'ML', or 'MJ', respectively. | String | No | 'ML' |
+| `n_min` | Minimum value of the principle quantum number `$n$`, to allow in the basis. | `Int` | Yes | N/A |
+| `n_max` | Maximum value of the principle quantum number `$n$`, to allow in the basis. | `Int` | Yes | N/A |
+| `L_max` | Maximum value of the orbital angular momentum quantum number to allow in the basis. `None` means no restriction. | `Int` [or `None`] | No | `None` |
+| `S` | Value of the total spin orbital angular momentum. [Singlet: `S=0`, Triplet: `S=1`]. `None` means both.  | `Int` [or `None`] | No | `None` |
+| `M` | Single value of the azimuthal quantum number to use in the basis. `None` means no restriction. | `Int` [or `None`] | No | `None` |
+| `M_max` | Maximum value of the azimuthal quantum number to allow in the basis. `None` means no restriction. | `Int` [or `None`] | No | `None` |
+| `basis_type` | Whether to use the `$|n, \ell, S, M_{\ell} \rangle$`, or `$|n, \ell, S, J, M_J \rangle$` basis. Specify using `'ML'`, or `'MJ'`, respectively. | `String` | No | `'ML'` |
 
 #### Method: `energy`
 Energy relative to the ionisation energy.
@@ -67,7 +67,7 @@ Energy relative to the ionisation energy.
 | Parameter  | Description | Data type | Required | Default |
 | ------------ | ------------ | ------------ | ------------ | ------------ |
 | `state` | State to calculate the energy of. | `State` | Yes | N/A |
-| `units` | Unit of energy [atomic, J, wavenumber, Hz, GHz] | `String` | No | GHz |
+| `units` | Unit of energy ['`atomic'`, `'J'`, `'wavenumber'`, `'Hz'`, `'GHz'`] | `String` | No | `'GHz'` |
 
 #### Method: `radiative_lifetime_all`
 Radiative lifetime of a state, considering all possible electric dipole allowed transitions.
@@ -75,7 +75,7 @@ Radiative lifetime of a state, considering all possible electric dipole allowed 
 | Parameter  | Description | Data type | Required | Default |
 | ------------ | ------------ | ------------ | ------------ | ------------ |
 | `state` | State to calculate the radiative lifetime of. | `State` | Yes | N/A |
-| `units` | Unit of time [s, ms, us, ns] | `String` | No | s |
+| `units` | Unit of time [`'s'`, `'ms'`, `'us'`, `'ns'`] | `String` | No | `'s'` |
 
 #### Method: `transition_energy`
 Transition energy between two states.
@@ -84,7 +84,7 @@ Transition energy between two states.
 | ------------ | ------------ | ------------ | ------------ | ------------ |
 | `state_1` | State to calculate the transition energy from. | `State` | Yes | N/A |
 | `state_2` | State to calculate the transition energy to. | `State` | Yes | N/A |
-| `units` | Unit of energy [atomic, J, wavenumber, Hz, GHz] | `String` | No | GHz |
+| `units` | Unit of energy ['`atomic'`, `'J'`, `'wavenumber'`, `'Hz'`, `'GHz'`]  | `String` | No | `'GHz'` |
 
 #### Method: `transition_dipole_moment`
 Transition electric dipole moment between two states.
@@ -93,7 +93,7 @@ Transition electric dipole moment between two states.
 | ------------ | ------------ | ------------ | ------------ | ------------ |
 | `state_1` | State to calculate the transition dipole moment from. | `State` | Yes | N/A |
 | `state_2` | State to calculate the transition dipole moment to. | `State` | Yes | N/A |
-| `units` | Unit of dipole moment [atomic, debye, coloumb meter] | `String` | No | debye |
+| `units` | Unit of dipole moment [`'atomic'`, `'debye'`, `'coloumb meter'`] | `String` | No | `'debye'` |
 
 #### Method: `radiative_lifetime`
 Radiative lifetime between two electric dipole allowed states.
@@ -102,7 +102,7 @@ Radiative lifetime between two electric dipole allowed states.
 | ------------ | ------------ | ------------ | ------------ | ------------ |
 | `state_1` | State to calculate the radiative lifetime from. | `State` | Yes | N/A |
 | `state_2` | State to calculate the radiative lifetime to. | `State` | Yes | N/A |
-| `units` | Unit of time [s, ms, us, ns] | `String` | No | s |
+| `units` | Unit of time [`'s'`, `'ms'`, `'us'`, `'ns'`] | `String` | No | `'s'` |
 
 
 Version information

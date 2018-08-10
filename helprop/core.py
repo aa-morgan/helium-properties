@@ -20,15 +20,13 @@ def energy(state, **kwargs):
     qd = hsz.get_qd(state.n, state.L, state.S, state.J)
     n_eff = state.n - qd
     en = hsz.energy(state.n, n_eff)
-    units = select_units(unit_type='energy', units=kwargs.get('units', 'ghz'))
-    return en * units
+    return convert_units(value=en, unit_type='energy', units=kwargs.get('units', 'ghz'))
 
 def transition_energy(state_1, state_2, **kwargs):
     en_1 = energy(state_1, units='au')
     en_2 = energy(state_2, units='au')
     transition_en = np.abs(en_1 - en_2)
-    units = select_units(unit_type='energy', units=kwargs.get('units', 'ghz'))
-    return transition_en * units
+    return convert_units(value=transition_en, unit_type='energy', units=kwargs.get('units', 'ghz'))
 
 def transition_dipole_moment(state_1, state_2, basis_type='ml', **kwargs):
     """ Calculates the electric transition dipole moment between two states
@@ -36,8 +34,7 @@ def transition_dipole_moment(state_1, state_2, basis_type='ml', **kwargs):
     """
     dM_allow = kwargs.get('dM_allow', [0,+1,-1])
     tdm = np.abs(hsz.stark_interaction(state_1, state_2, basis_type, dM_allow=[0,+1,-1]))
-    units = select_units(unit_type='electric dipole moment', units=kwargs.get('units', 'debye'))
-    return tdm * units
+    return convert_units(value=tdm, unit_type='electric dipole moment', units=kwargs.get('units', 'debye'))
 
 def spontaneous_emission_rate(state_1, state_2, **kwargs):
     if not(allowed_transition(state_1, state_2, **kwargs)):
@@ -48,8 +45,7 @@ def spontaneous_emission_rate(state_1, state_2, **kwargs):
     
     tdm = transition_dipole_moment(state_1, state_2, units='cm')
     einstein_A = ((2*omega_transition**3)/(3*epsilon_0*h*c**3)) * np.abs(tdm)**2
-    units = select_units(unit_type='time', units=kwargs.get('units', 's'))
-    return einstein_A / units
+    return convert_units(value=einstein_A, unit_type='time', units=kwargs.get('units', 's'))
 
 def spontaneous_emission_rate_all(state_1, **kwargs):
     basis = hsz.Hamiltonian(n_min=1, n_max=state_1.n, S=state_1.S).basis
@@ -88,60 +84,69 @@ def hydrogenic_polarizability(state, **kwargs):
     m = state.M
     F_0 = En_h/(e*a_0)
     pol = (1/8)*(1/F_0)**2*n**4*(17*n**2 - 3*k**2 - 9*m**2 + 19)
-    units = select_units(unit_type='polarizability', units=kwargs.get('units', 'hz/(v/cm)2'))
-    return pol * units
+    return convert_units(value=pol, unit_type='polarizability', units=kwargs.get('units', 'hz/(v/cm)2'))
 
 def relative_hydrogenic_polarizability(state_1, state_2, **kwargs):
     pol_1 = hydrogenic_polarizability(state_1, **kwargs)
     pol_2 = hydrogenic_polarizability(state_2, **kwargs)
     return pol_2 - pol_1
 
-def select_units(unit_type, units):
+def convert_units(value, unit_type, units):
     if unit_type == 'energy':
         if str(units).lower() in ['au', 'atomic', 'ea']:
-            return 1.0
+            return value * 1.0
         elif str(units).lower() in ['j', 'joules', 'E']:
-            return En_h
+            return value * En_h
         elif str(units).lower() in ['cm', 'wavenumber', 'wavenumbers']:
-            return (En_h/(h*c*100))
+            return value * (En_h/(h*c*100))
         elif str(units).lower() in ['hz', 'frequency', 'freq', 'f']:
-            return (En_h/h)
+            return (value * En_h/h)
         elif str(units).lower() in ['khz']:
-            return (En_h/h) * 10**-3
+            return value * (En_h/h) * 10**-3
         elif str(units).lower() in ['mhz']:
-            return (En_h/h) * 10**-6
+            return value * (En_h/h) * 10**-6
         elif str(units).lower() in ['ghz']:
-            return (En_h/h) * 10**-9
+            return value * (En_h/h) * 10**-9
+        elif str(units).lower() in ['m']:
+            return abs((c/(En_h/h)) / value)
+        elif str(units).lower() in ['cm']:
+            return abs((c/(En_h/h)) * 10**2 / value)
+        elif str(units).lower() in ['mm']:
+            return abs((c/(En_h/h)) * 10**3 / value)
+        elif str(units).lower() in ['um']:
+            return abs((c/(En_h/h)) * 10**6 / value)
+        elif str(units).lower() in ['nm']:
+            return abs((c/(En_h/h)) * 10**9 / value)
     elif unit_type == 'electric dipole moment':
         if str(units).lower() in ['au', 'atomic']:
-            return 1.0
+            return value * 1.0
         elif str(units).lower() in ['debye', 'd']:
-            return au_to_debye
+            return value * au_to_debye
         elif str(units).lower() in ['coulomb meter', 'cm']:
-            return e*a_0
+            return value * e*a_0
     elif unit_type == 'time':
         if str(units).lower() in ['s', 'sec', 'seconds']:
-            return 1.0
+            return value * 1.0
         elif str(units).lower() in ['ms', 'millisec', 'milliseconds']:
-            return 10**3
+            return value * 10**-3
         elif str(units).lower() in ['us', 'microsec', 'microseconds']:
-            return 10**6
+            return value * 10**-6
         elif str(units).lower() in ['ns', 'nanosec', 'nanoseconds']:
-            return 10**9
+            return value * 10**-9
     elif unit_type == 'polarizability':
         if str(units).lower() in ['hz/(v/m)2']:
-            return En_h/(2*h)
+            return value * En_h/(2*h)
         elif str(units).lower() in ['khz/(v/m)2']:
-            return En_h/(2*h) *10**-3
+            return value * En_h/(2*h) *10**-3
         elif str(units).lower() in ['mhz/(v/m)2']:
-            return En_h/(2*h) *10**-6
+            return value * En_h/(2*h) *10**-6
         if str(units).lower() in ['hz/(v/cm)2']:
-            return En_h/(2*h) * 10**4
+            return value * En_h/(2*h) * 10**4
         elif str(units).lower() in ['khz/(v/cm)2']:
-            return En_h/(2*h) *10**-3 * 10**4
+            return value * En_h/(2*h) *10**-3 * 10**4
         elif str(units).lower() in ['mhz/(v/cm)2']:
-            return En_h/(2*h) *10**-6 * 10**4
+            return value * En_h/(2*h) *10**-6 * 10**4
         elif str(units).lower() in ['cm2/v']:
-            return En_h
+            return value * En_h
     else:
         raise('Units '+str(units)+' not known.')

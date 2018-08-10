@@ -53,13 +53,13 @@ Parameters
 #### Class: `State`
 | Parameter  | Description | Data type | Required | Default |
 | ------------ | ------------ | ------------ | ------------ | ------------ |
-| `n_min` | Minimum value of the principle quantum number `$n$`, to allow in the basis. | `Int` | Yes | N/A |
-| `n_max` | Maximum value of the principle quantum number `$n$`, to allow in the basis. | `Int` | Yes | N/A |
+| `n_min` | Minimum value of the principle quantum number `n`, to allow in the basis. | `Int` | Yes | N/A |
+| `n_max` | Maximum value of the principle quantum number `n`, to allow in the basis. | `Int` | Yes | N/A |
 | `L_max` | Maximum value of the orbital angular momentum quantum number to allow in the basis. `None` means no restriction. | `Int` [or `None`] | No | `None` |
 | `S` | Value of the total spin orbital angular momentum. [Singlet: `S=0`, Triplet: `S=1`]. `None` means both.  | `Int` [or `None`] | No | `None` |
 | `M` | Single value of the azimuthal quantum number to use in the basis. `None` means no restriction. | `Int` [or `None`] | No | `None` |
 | `M_max` | Maximum value of the azimuthal quantum number to allow in the basis. `None` means no restriction. | `Int` [or `None`] | No | `None` |
-| `basis_type` | Whether to use the `$|n, \ell, S, M_{\ell} \rangle$`, or `$|n, \ell, S, J, M_J \rangle$` basis. Specify using `'ML'`, or `'MJ'`, respectively. | `String` | No | `'ML'` |
+| `basis_type` | Whether to use the `n, L, S, M_L`, or `n, L, S, J, M_J` basis. Specify using `'ML'`, or `'MJ'`, respectively. | `String` | No | `'ML'` |
 
 #### Method: `energy`
 Energy relative to the ionisation energy.

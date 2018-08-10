@@ -7,14 +7,19 @@ M. L. Zimmerman et al., Phys. Rev. A, 20, 2251 (1979)
 http://dx.doi.org/10.1103/PhysRevA.20.2251
 
 Install
--------
+------- 
 
-Requires: https://github.com/axm108/helium-stark-zeeman
-
-Install using `setuptools`,
+Install `helium-properties` using `setuptools`,
 ```bash
 git clone https://github.com/axm108/helium-properties
 cd helium-properties
+python setup.py install
+```
+
+Install [`helium-stark-zeeman`](https://github.com/axm108/helium-stark-zeeman) using `setuptools`,
+```bash
+git clone https://github.com/axm108/helium-stark-zeeman
+cd helium-stark-zeeman
 python setup.py install
 ```
 

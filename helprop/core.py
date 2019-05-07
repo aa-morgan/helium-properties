@@ -48,7 +48,7 @@ def spontaneous_emission_rate(state_1, state_2, **kwargs):
     return convert_units(value=einstein_A, unit_type='time', units=kwargs.get('units', 's'))
 
 def spontaneous_emission_rate_all(state_1, **kwargs):
-    basis = hsz.Hamiltonian(n_min=1, n_max=state_1.n, S=state_1.S).basis
+    basis = hsz.HamiltonianMatrix(n_min=1, n_max=state_1.n, S=state_1.S).basis
     emission_rate_sum = 0.0
     allowed_states = []
     for state_2 in basis.states:
